@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        /*make two array one that holds product of all previous elements
+        of the array at a given index and another that holds product of 
+        all elements next to current index. Then multiply the elemnt a i
+        index of both array and store the answer in result array*/
+
+        int n=nums.size();
+        int post[n];
+        int pre[n];
+        int mul=1;
+        for(int i=0;i<n;i++){
+            pre[i]=mul;
+            mul=mul*nums[i];
+        }
+        mul=1;
+        for(int i=n-1;i>=0;i--){
+            post[i]=mul;
+            mul=mul*nums[i];
+        }
+        vector<int>result;
+        for(int i=0;i<n;i++){
+            result.push_back(pre[i]*post[i]);
+        }
+        return result;
+    }
+};

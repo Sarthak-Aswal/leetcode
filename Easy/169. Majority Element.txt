@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+
+        //moore algorithm//
+
+        /*if the count is 0 take that element as majority
+        if the next elemnent is same increase the count and if
+        the next element is not the same then decrease the count*/
+
+        /*Note: this algo surely gives correct majority element if there exists one but 
+        if there is no majority elemnt then also it gives an answer*/
+
+        int count=0;
+        int element=0;
+        for(int i=0;i<nums.size();i++){
+             if(count==0){
+                 element=nums[i];
+                 count++;
+             }
+              else if(nums[i]!=element){
+                 count--;
+
+             }
+             else{
+                 count++;
+             }
+        }
+        return element;
+    }
+};

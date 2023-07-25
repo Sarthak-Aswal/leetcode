@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        /*since the range of elements is from 1 to length of array the
+        maximum element will be last index+1 or n*/
+        /*we take an element and go to element-1 index and make it negative
+        if we go to element-1 index and it is already -ve then it is clear that 
+        we came to that index previously thus the element is occuring more than 1 times
+        and add it to result. We take absolute of the element when we check because we
+        may have made that element -ve if we encountered that element+1th elemnt*/ 
+
+        int num;
+        vector<int> ans;
+        for(int i=0;i<nums.size();i++){
+            num=abs(nums[i]);
+            if(nums[num-1]<0){
+                ans.push_back(num);
+            }
+            else{
+            nums[num-1]= 0-nums[num-1];
+            }
+        }
+        return ans;
+    }
+};

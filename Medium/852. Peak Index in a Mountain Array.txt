@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        //just apply binary search with some modification//
+
+        //golden section algo can also be used//
+        
+        int start=0;
+        int end=arr.size()-1;
+        while(start<end){
+            int mid=start+(end-start)/2;
+            if(arr[mid]<arr[mid+1]){
+                start=mid+1;
+            }
+            else{
+                end=mid;
+            }
+        }
+        return start;
+    }
+};

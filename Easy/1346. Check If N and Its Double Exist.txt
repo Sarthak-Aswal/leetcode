@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        
+        /*we use a set and insert elements in it and before adding the 
+        element to the set if half or double of that element exist in that set 
+        and if it exist we return true and at last return false*/
+
+       set<int> table;
+       for(int i=0;i<arr.size();i++){
+
+           if(table.find(arr[i]*2)!=table.end()){
+               return true;
+           }
+           else if(arr[i]%2==0){
+               if(table.find(arr[i]/2)!=table.end()){
+                   return true;
+               }
+           }
+           table.insert(arr[i]);
+
+
+       } 
+       return false;
+    }
+};
