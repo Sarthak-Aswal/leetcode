@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+
+        /*first find the transpose the whole matrix
+        transpose= row x becomes column x
+        after transpose reverse each row*/
+
+        int maxrow=matrix.size()-1;
+        int maxcol=matrix[0].size()-1;
+
+        //transpose//
+        for(int row=0;row<=maxrow;row++){
+            for(int col=0;col<=maxcol;col++){
+                if(row!=col&&row<col){
+                    swap(matrix[row][col],matrix[col][row]);
+                }
+            }
+        }
+
+        //reverse each row//
+        for(int row=0;row<=maxrow;row++){
+            reverse(matrix[row].begin(),matrix[row].end());
+        }
+    }
+};
