@@ -1,6 +1,8 @@
 class Solution {
 public:
     int maxArea(vector<int>& height) {
+        /*two pointer approach- find maximum amount of water in each 
+        step and move the smaller pointer*/
         int maxAmount=0;
         int last=height.size()-1;
         int first=0;
