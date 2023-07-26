@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+
+        /*first we sort the array and then iterate over the array and if current element 
+        is already checked before or it has already occured we just continue because we
+        dont need duplicate triplets. Then we use two pointer approah like in two sum 
+        problem and pust the answer to result vector*/
+
+        sort(nums.begin(),nums.end());
+        vector<vector<int>> result;
+        int n=nums.size();
+        for(int i=0;i<n;i++){
+            if(i>0&&nums[i]==nums[i-1]){
+                //continue if we already checked for that number//
+                continue;
+            }
+            int j=i+1;
+            int k=n-1;
+            //iterate over rest of array with 2 pointer approach//
+            while(j<k){
+                if(nums[i]+nums[j]+nums[k]==0){
+                    //if condition is met push answer into result array//
+                    vector<int>temp;
+                    temp.push_back(nums[i]);
+                    temp.push_back(nums[j]);
+                    temp.push_back(nums[k]);
+                    result.push_back(temp);
+                    j++;
+                    k--;
+                    //move j pointer till we find next diff number and till it is less than k//
+                    while(j<k&&nums[j]==nums[j-1]) j++;
+                    //move k pointer till we find next diff number and till it is more than j//
+                    while(j<k&&nums[k]==nums[k+1]) k--;
+                }
+                else if(nums[i]+nums[j]+nums[k]<0){ 
+                    j++;
+                    }
+                else{
+                    k--;
+                    }
+
+
+            }
+        }
+        return result;
+    }
+};

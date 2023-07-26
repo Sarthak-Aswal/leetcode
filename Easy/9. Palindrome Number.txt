@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        /*if the number is negative we simply return false
+        if the number is posistive we reverse it and check whether
+        reversed number and original number is same or not*/
+
+        if(x<0){
+            return false;
+        }
+        double reverse=0;
+        int num=x;
+        int rem;
+        //Reverse the number//
+        while(num>0){
+            rem=num%10;
+            reverse=reverse*10+rem;
+            num=num/10;
+        }
+        return x==reverse;
+        
+    }
+};
