@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        /*we take two arrays left and right in which we store maximum element from left
+        and right of that particular index.Then we find the calculate how much water a
+        particular index can trap and keep adding it to our final answer.*/
+
+        vector<int> left;
+        vector<int > right;
+        int n=height.size();
+        int rightmax=0;
+        int leftmax=0;
+        //calculate max element from left of index// 
+        for(int i=0;i<height.size();i++){
+               left.push_back(leftmax);
+               leftmax=max(leftmax,height[i]);
+        }
+        //calculates max elemnt at the right of an index//
+        //but the array is reversed insert from front to make it correct//
+        for(int i=height.size()-1;i>=0;i--){
+               right.push_back(rightmax);
+               if(height[i]>rightmax){
+                   rightmax=height[i];
+               }
+        }
+        int trap=0;
+        for(int i=0;i<height.size();i++){
+            //since right is reversed we iterate from back//
+            int water=min(left[i],right[n-i-1]);
+            if(water>height[i]){
+                trap=trap+water-height[i];
+            }
+        }
+        return trap;
+    }
+};
