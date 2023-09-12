@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid){
+        /*make a new 2d array visited and copy all the elements and apply bfs on each rotten
+        orange*/
+
+        queue<pair<pair<int,int>,int>> myq;
+        int row=grid.size()-1;
+        int col=grid[0].size()-1;
+        int visited[row+1][col+1];
+        int countFresh=0;
+        int time=0;
+        //copying elements to visited//
+        for(int i=0;i<=row;i++){
+            for(int j=0;j<=col;j++){
+                visited[i][j]=grid[i][j];
+                
+                if(grid[i][j]==2){
+                   //pushing rotten oranges to queue for bfs//
+                   myq.push({{i,j},0});
+                }
+                else if(grid[i][j]==1){
+                    //counting total fresh oranges//
+                    countFresh++;
+                }
+              
+            }
+        }
+
+        //applying bfs to all rotten oranges//
+        while(!myq.empty()){
+            int currentRow=myq.front().first.first;
+            int currentCol=myq.front().first.second;
+            int currentTime=myq.front().second;
+            time=max(time,currentTime);
+            myq.pop();
+
+            if(currentRow+1<=row&&visited[currentRow+1][currentCol]==1){
+                countFresh--;
+                visited[currentRow+1][currentCol]=2;
+                myq.push({{currentRow+1,currentCol},currentTime+1});
+            }
+
+            if(currentRow-1>=0&&visited[currentRow-1][currentCol]==1){
+                countFresh--;
+                visited[currentRow-1][currentCol]=2;
+                myq.push({{currentRow-1,currentCol},currentTime+1});
+            }
+
+            if(currentCol+1<=col&&visited[currentRow][currentCol+1]==1){                
+                countFresh--;
+                visited[currentRow][currentCol+1]=2;
+                myq.push({{currentRow,currentCol+1},currentTime+1});
+            }
+
+            if(currentCol-1>=0&&visited[currentRow][currentCol-1]==1){                
+                countFresh--;
+                visited[currentRow][currentCol-1]=2;
+                myq.push({{currentRow,currentCol-1},currentTime+1});
+            }
+        }
+        
+        //checking if there is any fresh oranges left//
+        if(countFresh){
+            return -1;
+        }
+        return time;
+
+        
+    }
+};

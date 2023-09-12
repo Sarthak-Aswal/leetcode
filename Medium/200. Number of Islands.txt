@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid){
+        //apply bfs to all the unvisited islands//
+        int maxrow=grid.size()-1;
+        int maxcol=grid[0].size()-1;
+        int islands=0;
+        queue<pair<int,int>> myq;
+        //boolean array visited to track all visited and unvisited land//
+        bool visited[maxrow+1][maxcol+1];
+        for(int i=0;i<=maxrow;i++){
+            for(int j=0;j<=maxcol;j++){
+                //marking all land as unvisited at the starting//
+                visited[i][j]=false;
+            }
+        }
+        
+        for(int i=0;i<=maxrow;i++){
+        for(int j=0;j<=maxcol;j++){
+            //pushing unvisited land in queue fro bfs//
+            if(grid[i][j]=='1'&&!visited[i][j]){
+                myq.push({i,j});
+
+                while(!myq.empty()){
+
+                int currentRow=myq.front().first;
+                int currentCol=myq.front().second;
+                myq.pop();
+                //checking all neighbouring unvisited land and pushing into queue//
+                if(currentRow-1>=0&&grid[currentRow-1][currentCol]=='1'
+                &&!visited[currentRow-1][currentCol]){
+                    myq.push({currentRow-1,currentCol});
+                    visited[currentRow-1][currentCol]=true;
+                }
+
+                if(currentRow+1<=maxrow&&grid[currentRow+1][currentCol]=='1'
+                &&!visited[currentRow+1][currentCol]){
+                    myq.push({currentRow+1,currentCol});
+                    visited[currentRow+1][currentCol]=true;                           
+                }
+
+                if(currentCol-1>=0&&grid[currentRow][currentCol-1]=='1'
+                &&!visited[currentRow][currentCol-1]){
+                    myq.push({currentRow,currentCol-1});
+                    visited[currentRow][currentCol-1]=true;                            
+                }
+
+                if(currentCol+1<=maxcol&&grid[currentRow][currentCol+1]=='1'
+                &&!visited[currentRow][currentCol+1]){
+                    myq.push({currentRow,currentCol+1});
+                    visited[currentRow][currentCol+1]=true;                            
+                }
+            }
+            //increasing islands count once a single bfs is complete//
+            islands++;
+        }
+    }
+}
+        return islands;
+
+    }
+};
